@@ -16,7 +16,6 @@ public class PushCallback implements MqttCallback {
     private static int last_fast_q0;
     private static int last_fast_q1;
     private static int last_fast_q2;
-    Topic topicf0 = new Topic();
     public void connectionLost(Throwable cause) {
         // 连接丢失后，一般在这里面进行重连
         System.out.println("连接断开，可以做重连");
@@ -47,9 +46,9 @@ public class PushCallback implements MqttCallback {
 
 
     private void control(String mes, String topic){
-        if (topic.equals( "counter/fast/q0")){
+        if (topic.contains( "q0")){
 
-            try{topicf0.add_message(Integer.parseInt(mes));
+            try{Client.messages_f0.add(Integer.parseInt(mes));
                 if (Integer.parseInt(mes)-last_fast_q0==1){
                     start_fast_q0 = System.currentTimeMillis();
                     Client.times_fast_q0.add(start_fast_q0-time_fast_q0);
@@ -63,7 +62,7 @@ public class PushCallback implements MqttCallback {
             }
             time_fast_q0=System.currentTimeMillis();
         }
-        if (topic.equals( "counter/fast/q1")){
+        if (topic.contains( "q1")){
 
             try{Client.messages_f1.add(Integer.parseInt(mes));
 
@@ -80,7 +79,7 @@ public class PushCallback implements MqttCallback {
             }
             time_fast_q1=System.currentTimeMillis();
         }
-        if (topic.equals( "counter/fast/q2")){
+        if (topic.contains( "q2")){
                         try{Client.messages_f2.add(Integer.parseInt(mes));
                 if (Integer.parseInt(mes)-last_fast_q2==1){
                     start_fast_q2 = System.currentTimeMillis();
@@ -95,6 +94,15 @@ public class PushCallback implements MqttCallback {
             }
            time_fast_q2=System.currentTimeMillis();
 
+        }
+        if(topic.contains( "sent")){
+            Client.sent.add(mes);
+        }
+        if(topic.contains( "heap")){
+            Client.heap.add(mes);
+        }
+        if(topic.contains( "active")){
+            Client.active.add(mes);
         }
     }
 }

@@ -16,6 +16,9 @@ public class Client {
     public static ArrayList<Double> times_fast_q0 = new ArrayList<Double>();
     public static ArrayList<Double> times_fast_q1 = new ArrayList<Double>();
     public static ArrayList<Double> times_fast_q2 = new ArrayList<Double>();
+    public static ArrayList<String> sent = new ArrayList<String>();
+    public static ArrayList<String> heap = new ArrayList<String>();
+    public static ArrayList<String> active = new ArrayList<String>();
 
     public static final String HOST = "tcp://comp3310.ddns.net";
     public static final String TOPIC1 = "counter/fast/q0";
@@ -29,9 +32,8 @@ public class Client {
     public static final String TOPIC_active ="$SYS/broker/clients/active";
     public static final String TOPICtest = "zzz";
     private static final String clientid = "3310-u5686922";
-    private static final int time = 300;
+    private static final int time = 5;
     public static int error;
-    public static int loss;
     public static int out_of_order_f0;
     public static int out_of_order_f1;
     public static int out_of_order_f2;
@@ -88,9 +90,9 @@ public class Client {
     public static void main(String[] args) throws MqttException {
 
         Client client = new Client();
-        int[] Qos  = {0,1,2};
-        String[] topics1 = {TOPIC1,TOPIC2,TOPIC3};
-        String[] topics2 = {TOPIC4,TOPIC5,TOPIC6};
+        int[] Qos  = {0,1,2,0,0,0};
+        String[] topics1 = {TOPIC1,TOPIC2,TOPIC3,TOPIC_sent,TOPIC_heap,TOPIC_active};
+        String[] topics2 = {TOPIC4,TOPIC5,TOPIC6,TOPIC_sent,TOPIC_heap,TOPIC_active};
         client.start(topics1,Qos);
 
 
@@ -124,6 +126,9 @@ public class Client {
 //        System.out.println(messages_f2);
         System.out.println(messages_f2.size());
         System.out.println((messages_f2.get(messages_f2.size()-1)-messages_f2.get(0)));
+        System.out.println(sent);
+        System.out.println(heap);
+        System.out.println(active);
 //        System.out.println(messages_f0);
 //        System.out.println(messages_f0.size());
 //        System.out.println((messages_f0.get(messages_f0.size()-1))-messages_f0.get(0));
