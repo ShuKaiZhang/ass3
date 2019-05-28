@@ -24,6 +24,9 @@ public class Client {
     public static final String TOPIC4 = "counter/slow/q0";
     public static final String TOPIC5 = "counter/slow/q1";
     public static final String TOPIC6 = "counter/slow/q2";
+    public static final String TOPIC_sent ="$SYS/broker/load/messages/sent/1min";
+    public static final String TOPIC_heap ="$SYS/broker/heap/current";
+    public static final String TOPIC_active ="$SYS/broker/clients/active";
     public static final String TOPICtest = "zzz";
     private static final String clientid = "3310-u5686922";
     private static final int time = 300;
@@ -118,7 +121,7 @@ public class Client {
         System.out.println("the gap-variation in fast q0 is: "+standard_deviation(sum(times_fast_q0)/times_fast_q0.size(),times_fast_q0));
         System.out.println("the gap-variation in fast q1 is: "+standard_deviation(sum(times_fast_q1)/times_fast_q1.size(),times_fast_q1));
         System.out.println("the gap-variation in fast q2 is: "+standard_deviation(sum(times_fast_q2)/times_fast_q2.size(),times_fast_q2));
-        System.out.println(messages_f2);
+//        System.out.println(messages_f2);
         System.out.println(messages_f2.size());
         System.out.println((messages_f2.get(messages_f2.size()-1)-messages_f2.get(0)));
 //        System.out.println(messages_f0);
